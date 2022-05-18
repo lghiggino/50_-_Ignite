@@ -1,12 +1,13 @@
 import { Button } from "./Button"
+import { GenreResponseProps } from '../App'
 
 interface SideBarProps {
-  genres: any
-  selectedGenreId: any
-  setSelectedGenreId: any
+  genres: GenreResponseProps[]
+  selectedGenreId: number
+  setSelectedGenreId: (id: number) => void
 }
 
-export function SideBar({genres, selectedGenreId, setSelectedGenreId}: SideBarProps) {
+export function SideBar({ genres, selectedGenreId, setSelectedGenreId }: SideBarProps) {
 
 
   function handleClickButton(id: number) {
@@ -18,7 +19,7 @@ export function SideBar({genres, selectedGenreId, setSelectedGenreId}: SideBarPr
       <span>Watch<p>Me</p></span>
 
       <div className="buttons-container">
-        {genres.map((genre:any) => (
+        {genres.map((genre: any) => (
           <Button
             key={String(genre.id)}
             title={genre.title}
