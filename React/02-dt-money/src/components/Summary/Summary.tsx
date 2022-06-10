@@ -22,7 +22,8 @@ export function Summary() {
                 <strong>- R$600,00</strong>
             </div>
 
-            <div>
+            {/* Essa className abaixo seria melhor como um check de saldo >= 0 ? green : red */}
+            <div className="highlight-background">
                 <header>
                     <p>Saldo</p>
                     <img src={totalImg} alt="saldo" />
