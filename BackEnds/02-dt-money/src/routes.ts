@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import { Router } from "express";
 import { TransactionService } from "./service/TransactionService";
 
@@ -16,15 +15,12 @@ routes.get('/', (req, res) => {
 routes.post('/transaction', async (req, res) => {
     const { title, amount, type, category } = req.body
 
-    const createdAt = dayjs().format("YYYY-MM-DD")
-
-    const feedback = await TransactionService.create({
+    const transaction = await TransactionService.create({
         title, 
         amount, 
         type, 
         category,
-        createdAt
     })
 
-    return res.status(201).json({ data: feedback })
+    return res.status(201).json({ data: transaction })
 })
