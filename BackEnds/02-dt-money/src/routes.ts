@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { TransactionService } from "./service/TransactionService";
+import { UserService } from "./service/UserService";
 
 
 export const routes = Router()
@@ -13,14 +14,30 @@ routes.get('/', (req, res) => {
 })
 
 routes.post('/transaction', async (req, res) => {
-    const { title, amount, type, category } = req.body
+    const { title, amount, type, category, userId, User} = req.body
 
     const transaction = await TransactionService.create({
-        title, 
-        amount, 
-        type, 
+        title,
+        amount,
+        type,
         category,
+        userId, 
+        User
     })
 
     return res.status(201).json({ data: transaction })
+})
+
+routes.post('/createuser', async (req, res) => {
+    const { firstname, lastname, password, email, phonenumber } = req.body
+
+    const newUser = await UserService.create({
+        firstname,
+        lastname,
+        password,
+        email,
+        phonenumber
+    })
+
+    return res.status(201).json({ data: newUser })
 })

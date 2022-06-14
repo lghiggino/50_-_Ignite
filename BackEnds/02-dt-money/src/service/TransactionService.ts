@@ -1,3 +1,4 @@
+import { User } from "@prisma/client"
 import { TransactionRepository } from "../repositories/TransactionRepository"
 
 export type TransactionCreationProps = {
@@ -5,13 +6,15 @@ export type TransactionCreationProps = {
     amount: number
     type: string
     category: string
+    userId: string 
+    User: any
 }
 
 const transactionRepository = new TransactionRepository()
 
 export class TransactionService {
-    static async create({ title, amount, type, category }: TransactionCreationProps) {
-        const created = await transactionRepository.create({title, amount, type, category})
+    static async create({ title, amount, type, category, userId, User }: TransactionCreationProps) {
+        const created = await transactionRepository.create({title, amount, type, category, userId, User})
         return created
     }
 

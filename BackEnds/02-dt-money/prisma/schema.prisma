@@ -27,4 +27,19 @@ model Transactions {
   type      String
   category  String
   createdAt DateTime @default(now())
+
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String?
+}
+
+model User {
+  id          String   @id @default(uuid())
+  firstname   String
+  lastname    String
+  password    String
+  email       String
+  phonenumber String?
+  createdAt   DateTime @default(now())
+
+  transactions Transactions[]
 }
