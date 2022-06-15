@@ -37,7 +37,7 @@ model User {
   firstname   String
   lastname    String
   password    String
-  email       String
+  email       String   @unique
   phonenumber String?
   createdAt   DateTime @default(now())
 
