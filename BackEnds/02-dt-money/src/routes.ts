@@ -50,5 +50,8 @@ routes.post('/createuser', async (req, res) => {
     return res.status(201).json({ data: newUser })
 })
 
-//finished getTransactionByUserId
-//TODO: login + salt/hash
+routes.post('/login', async (req, res) => {
+    const { email, password } = req.body
+
+    return res.json({email, password})
+})
