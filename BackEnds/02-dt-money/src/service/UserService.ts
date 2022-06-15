@@ -8,6 +8,11 @@ export type UserCreationProps = {
     phonenumber?: string
 }
 
+export type UserLoginProps = {
+    email: string
+    password: string
+}
+
 const userRepository = new UserRepository()
 
 export class UserService {
@@ -16,7 +21,8 @@ export class UserService {
         return created
     }
 
-    static async login(){
-        return 'to be implemented'
+    static async login({ email, password }: UserLoginProps){
+        const user = await userRepository.login({email, password})
+        return user
     }
 }

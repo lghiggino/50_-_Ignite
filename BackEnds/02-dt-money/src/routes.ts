@@ -2,7 +2,6 @@ import { Router } from "express";
 import { TransactionService } from "./service/TransactionService";
 import { UserService } from "./service/UserService";
 
-
 export const routes = Router()
 
 routes.get('/', (req, res) => {
@@ -53,5 +52,7 @@ routes.post('/createuser', async (req, res) => {
 routes.post('/login', async (req, res) => {
     const { email, password } = req.body
 
-    return res.json({email, password})
+    const user = await UserService.login({ email, password })
+
+    return res.json(user)
 })
