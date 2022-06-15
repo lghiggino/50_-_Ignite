@@ -14,18 +14,26 @@ routes.get('/', (req, res) => {
 })
 
 routes.post('/transaction', async (req, res) => {
-    const { title, amount, type, category, userId, User} = req.body
+    const { title, amount, type, category, userId, User } = req.body
 
     const transaction = await TransactionService.create({
         title,
         amount,
         type,
         category,
-        userId, 
+        userId,
         User
     })
 
     return res.status(201).json({ data: transaction })
+})
+
+routes.get('/transaction/:userId', async (req, res) => {
+    const { userId } = req.params
+
+    const transactionList = await TransactionService.getByUserId(userId)
+
+    return res.status(201).json({ data: transactionList })
 })
 
 routes.post('/createuser', async (req, res) => {
@@ -41,3 +49,6 @@ routes.post('/createuser', async (req, res) => {
 
     return res.status(201).json({ data: newUser })
 })
+
+//finished getTransactionByUserId
+//TODO: login + salt/hash

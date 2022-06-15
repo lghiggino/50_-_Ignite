@@ -13,9 +13,15 @@ export type TransactionCreationProps = {
 const transactionRepository = new TransactionRepository()
 
 export class TransactionService {
+    
     static async create({ title, amount, type, category, userId, User }: TransactionCreationProps) {
         const created = await transactionRepository.create({title, amount, type, category, userId, User})
         return created
+    }
+
+    static async getByUserId(userId: string) {
+        const transactionList = await transactionRepository.getByUserId(userId)
+        return transactionList
     }
 
     static async getAll() {
