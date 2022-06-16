@@ -7,7 +7,7 @@ export const Content = styled.div`
     max-width: 1120px;
     margin: 0 auto;
 
-    padding: 2rem 1rem 12rem;
+    padding: 2rem 1rem 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -35,13 +35,17 @@ export const Content = styled.div`
         }
     }
 
+`
 
-    
+export const FormSection = styled.section`
+    max-width: 1120px;
+    margin: 0 auto;
 
     form {
         display: flex;
         flex-direction: column;
-        outline: 2px solid red;
+        margin: 0 1rem 1rem 1rem;
+        padding-bottom: 2rem;
 
         label {
             color: #fff;
@@ -52,8 +56,8 @@ export const Content = styled.div`
             padding: 0 2rem;
             border-radius: 0.25rem;
             height: 2rem;
+            background-color: #fff;
+            color: var(--blue)
         }
     }
-
-    
 `

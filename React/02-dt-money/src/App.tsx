@@ -11,10 +11,9 @@ export function App() {
   return (
     <div className="App">
       <Global styles={GlobalStyles} />
+
       {!user &&
-        <>
-          <LoginHeader />
-        </>
+          <LoginHeader/>
       }
 
       {user &&
