@@ -12,19 +12,46 @@ export const Content = styled.div`
     align-items: center;
     justify-content: space-between;
 
-    button{
-        font-size: 1rem;
-        color: #fff;
-        background-color: var(--blue-light);
-        border: 0;
-        padding: 0 2rem;
-        border-radius: 0.25rem;
-        height: 3rem;
+    .button-container{
+        display: flex;
+        flex-direction: column;
 
-        transition: filter 0.2s;
+            button { 
+            font-size: 1rem;
+            color: #fff;
+            background-color: var(--blue-light);
+            border: 0;
+            padding: 0 2rem;
+            border-radius: 0.25rem;
+            height: 3rem;
+            margin-right: 1rem;
+            margin-bottom: 0.5rem;
 
-        &:hover{
-            filter: brightness(0.9);
+            transition: filter 0.2s;
+
+            &:hover{
+                filter: brightness(0.9);
+            }
+        }
+    }
+
+
+    
+
+    form {
+        display: flex;
+        flex-direction: column;
+        outline: 2px solid red;
+
+        label {
+            color: #fff;
+        }
+
+        input {
+            border: 0;
+            padding: 0 2rem;
+            border-radius: 0.25rem;
+            height: 2rem;
         }
     }
 
