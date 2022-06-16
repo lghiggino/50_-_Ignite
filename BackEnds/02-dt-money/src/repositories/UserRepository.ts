@@ -35,7 +35,7 @@ export class UserRepository {
             const passwordCorrect = user === null ? false : await bcrypt.compare(password, user.password)
 
             if (!(user && passwordCorrect)) {
-                throw new Error("invalid email or password")
+                return "invalid email or password"
             }
 
             const userForToken = {
