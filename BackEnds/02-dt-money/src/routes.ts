@@ -53,6 +53,10 @@ routes.post('/login', async (req, res) => {
     const { email, password } = req.body
 
     const user = await UserService.login({ email, password })
+    
+    if (user === "invalid email or password"){
+        return res.status(400).json({error: "invalid email or password"})
+    }
 
     return res.json(user)
 })

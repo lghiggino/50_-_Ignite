@@ -35,6 +35,7 @@ export class UserRepository {
             const passwordCorrect = user === null ? false : await bcrypt.compare(password, user.password)
 
             if (!(user && passwordCorrect)) {
+                //how to set this as a 401 status code?
                 return "invalid email or password"
             }
 
