@@ -57,7 +57,28 @@ export const FormSection = styled.section`
             border-radius: 0.25rem;
             height: 2rem;
             background-color: #fff;
-            color: var(--blue)
+            color: var(--blue);
+            outline: none;
+        }
+
+
+        button { 
+            font-size: 1rem;
+            color: #fff;
+            background-color: var(--blue-light);
+            border: 0;
+            padding: 0 2rem;
+            border-radius: 0.25rem;
+            height: 3rem;
+            margin-bottom: 0.5rem;
+            max-width: 12rem;
+            align-self: flex-end;
+
+            transition: filter 0.2s;
+
+            &:hover{
+                filter: brightness(0.9);
+            }
         }
     }
 `

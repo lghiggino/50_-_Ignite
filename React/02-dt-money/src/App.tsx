@@ -13,7 +13,13 @@ export function App() {
       <Global styles={GlobalStyles} />
 
       {!user &&
-          <LoginHeader/>
+        <>
+          <LoginHeader setUser={setUser} />
+          <div>
+            <h1 style={{textAlign: 'center'}}>Welcome to DtMoney</h1>
+          </div>
+        </>
+
       }
 
       {user &&
