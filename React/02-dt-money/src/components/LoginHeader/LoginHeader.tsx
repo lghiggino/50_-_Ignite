@@ -4,9 +4,15 @@ import { useEffect, useState, FormEvent } from 'react'
 import logoImg from '../../assets/logo.svg'
 import { Container, Content, FormSection } from './LoginHeader.styles'
 
-export function LoginHeader({setUser}: any) {
-    const [loginFormVisible, setLoginFormVisible] = useState(false)
-    const [signupFormVisible, setSignupFormVisible] = useState(false)
+interface LoginHeaderProps {
+    setUser: any
+    onOpenLoginModal: () => void;
+    onOpenRegisterModal: () => void;
+}
+
+export function LoginHeader({ setUser, onOpenLoginModal, onOpenRegisterModal }: LoginHeaderProps) {
+    const [handleLoginFormVisible, setHandleLoginFormVisible] = useState(false)
+    const [handleSignupFormVisible, setHandleSignupFormVisible] = useState(false)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
@@ -69,8 +75,9 @@ export function LoginHeader({setUser}: any) {
                     <button
                         type="button"
                         onClick={() => {
-                            setLoginFormVisible(true)
-                            setSignupFormVisible(false)
+                            setHandleLoginFormVisible(true)
+                            setHandleSignupFormVisible(false)
+                            onOpenLoginModal()
                         }}
                     >
                         Login
@@ -78,8 +85,9 @@ export function LoginHeader({setUser}: any) {
                     <button
                         type="button"
                         onClick={() => {
-                            setSignupFormVisible(true)
-                            setLoginFormVisible(false)
+                            setHandleSignupFormVisible(true)
+                            setHandleLoginFormVisible(false)
+                            onOpenRegisterModal()
                         }}
                     >
                         SignUp
@@ -87,7 +95,7 @@ export function LoginHeader({setUser}: any) {
                 </div>
             </Content>
             <FormSection>
-                {loginFormVisible &&
+                {handleLoginFormVisible &&
                     <form>
                         <label>email</label>
                         <input
@@ -112,7 +120,7 @@ export function LoginHeader({setUser}: any) {
                     </form>
                 }
 
-                {signupFormVisible &&
+                {handleSignupFormVisible &&
                     <form>
                         <label>email</label>
                         <input

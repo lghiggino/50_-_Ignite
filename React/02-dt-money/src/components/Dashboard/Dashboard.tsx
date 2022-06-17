@@ -3,10 +3,10 @@ import { Summary } from "../Summary/Summary";
 import { TransactionsTable } from "../TransactionsTable/TransactionsTable";
 
 type DashboardProps = {
-    userToken: string
+    userToken?: string
 }
 
-export function Dashboard({ userToken }: DashboardProps) {
+export function Dashboard() {
     return (
         <Container>
             <Summary />
