@@ -7,6 +7,12 @@ import { GlobalStyles } from "./styles/global";
 
 export function App() {
   const [user, setUser] = useState(false)
+  const [userToken, setUserToken] = useState<string>("")
+
+  if(user){
+    const token = localStorage.getItem("@userToken")
+    setUserToken(token as string)
+  }
 
   return (
     <div className="App">
@@ -25,7 +31,7 @@ export function App() {
       {user &&
         <>
           <Header />
-          <Dashboard />
+          <Dashboard userToken={userToken} />
         </>
       }
 
