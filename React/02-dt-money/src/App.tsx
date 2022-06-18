@@ -69,6 +69,9 @@ export function App() {
         isOpen={isNewTransactionModalOpen}
         onRequestClose={handleCloseNewTransactionModal}
       />
+      
+
+      
 
       <LoginModal
         isOpen={isLoginModalOpen}
