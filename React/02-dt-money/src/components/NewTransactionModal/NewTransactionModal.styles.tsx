@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
 
-export const Container = styled.div`
-    background-color: var(--blue);
+export const Container = styled.form`
+    
 `
