@@ -46,11 +46,7 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
                 >
                     Cadastrar
                 </button>
-
-
             </Container>
-
-
 
         </Modal>
     )
