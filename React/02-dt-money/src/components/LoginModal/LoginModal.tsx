@@ -29,22 +29,18 @@ export function LoginModal({ isOpen, onRequestClose }: LoginModalProps) {
                 <h2>Login</h2>
 
                 <input
-                    placeholder="Titulo"
+                    placeholder="Email"
                 />
 
                 <input
-                    placeholder="valor"
-                    type="number"
-                />
-
-                <input
-                    placeholder="Categoria"
+                    type="password"
+                    placeholder="Password"
                 />
 
                 <button
                     type="submit"
                 >
-                    Cadastrar
+                    Login
                 </button>
             </Container>
 

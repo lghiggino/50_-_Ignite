@@ -11,8 +11,6 @@ interface LoginHeaderProps {
 }
 
 export function LoginHeader({ setUser, onOpenLoginModal, onOpenRegisterModal }: LoginHeaderProps) {
-    const [handleLoginFormVisible, setHandleLoginFormVisible] = useState(false)
-    const [handleSignupFormVisible, setHandleSignupFormVisible] = useState(false)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
@@ -75,8 +73,6 @@ export function LoginHeader({ setUser, onOpenLoginModal, onOpenRegisterModal }: 
                     <button
                         type="button"
                         onClick={() => {
-                            setHandleLoginFormVisible(true)
-                            setHandleSignupFormVisible(false)
                             onOpenLoginModal()
                         }}
                     >
@@ -85,8 +81,6 @@ export function LoginHeader({ setUser, onOpenLoginModal, onOpenRegisterModal }: 
                     <button
                         type="button"
                         onClick={() => {
-                            setHandleSignupFormVisible(true)
-                            setHandleLoginFormVisible(false)
                             onOpenRegisterModal()
                         }}
                     >
@@ -94,71 +88,6 @@ export function LoginHeader({ setUser, onOpenLoginModal, onOpenRegisterModal }: 
                     </button>
                 </div>
             </Content>
-            <FormSection>
-                {handleLoginFormVisible &&
-                    <form>
-                        <label>email</label>
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(ev) => setEmail(ev.target.value)}
-                        />
-
-                        <label>password</label>
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={(ev) => setPassword(ev.target.value)}
-                        />
-
-                        <button
-                            type="submit"
-                            onClick={(ev) => { userlogin(ev) }}
-                        >
-                            Login
-                        </button>
-                    </form>
-                }
-
-                {handleSignupFormVisible &&
-                    <form>
-                        <label>email</label>
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(ev) => setEmail(ev.target.value)}
-                        />
-
-                        <label>password</label>
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={(ev) => setPassword(ev.target.value)}
-                        />
-
-                        <label>confirm password</label>
-                        <input
-                            type="password"
-                            value={confirmPassword}
-                            onChange={(ev) => setConfirmPassword(ev.target.value)}
-                        />
-
-                        <label>phone</label>
-                        <input
-                            type="phone"
-                            value={phone}
-                            onChange={(ev) => setPhone(ev.target.value)}
-                        />
-
-                        <button
-                            type="submit"
-                            onClick={(ev) => { createNewUser(ev) }}
-                        >
-                            Register
-                        </button>
-                    </form>
-                }
-            </FormSection>
         </Container >
     )
 } 
