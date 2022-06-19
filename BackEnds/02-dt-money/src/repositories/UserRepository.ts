@@ -1,11 +1,16 @@
+import { ApiError } from "../errors/ApiError";
 import { prisma } from "../prisma";
 import { UserCreationProps, UserLoginProps } from "../service/UserService";
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
+type User = {
+    password: string
+    email: string
+    id: string
+}
 
 export class UserRepository {
-
     async create({ firstname, lastname, password, email, phonenumber }: UserCreationProps) {
         try {
             const saltRounds = 10
@@ -19,7 +24,8 @@ export class UserRepository {
 
             return newUser
         } catch (error) {
-            throw new Error("Failed to create user at Repository")
+            // throw new Error("Failed to create user at Repository")
+            throw new ApiError("CreationError", 400, "Failed to create user at Repository")
         }
 
     }
@@ -31,6 +37,10 @@ export class UserRepository {
                     email: email
                 }
             })
+
+            if (!user){
+                return "invalid email or password"
+            }
 
             const passwordCorrect = user === null ? false : await bcrypt.compare(password, user.password)
 
@@ -48,12 +58,9 @@ export class UserRepository {
 
             return token
         } catch (error) {
-            console.log(error)
+            // console.log(error)
             throw new Error("Failed to login at Repository")
         }
     }
 
-    async getAll() {
-        await prisma.user.findMany()
-    }
 }
