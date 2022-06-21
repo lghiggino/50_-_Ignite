@@ -50,6 +50,9 @@ export class UserRepository {
             }
 
             const userForToken = {
+                firstname: user.firstname,
+                lastname: user.lastname,
+                phonenumber: user.phonenumber,
                 email: user.email,
                 id: user.id
             }
