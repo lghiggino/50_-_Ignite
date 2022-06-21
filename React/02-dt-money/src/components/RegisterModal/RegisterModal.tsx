@@ -29,22 +29,25 @@ export function RegisterModal({ isOpen, onRequestClose }: RegisterModalProps) {
                 <h2>Register</h2>
 
                 <input
-                    placeholder="Titulo"
+                    placeholder="Email"
                 />
 
                 <input
-                    placeholder="valor"
-                    type="number"
+                    placeholder="Password"
                 />
 
                 <input
-                    placeholder="Categoria"
+                    placeholder="Confirm Password"
+                />
+
+                <input
+                    placeholder="Phone"
                 />
 
                 <button
                     type="submit"
                 >
-                    Cadastrar
+                    Register
                 </button>
             </Container>
 
