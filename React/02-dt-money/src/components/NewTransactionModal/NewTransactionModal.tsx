@@ -1,4 +1,5 @@
-import { useState } from "react";
+import axios from "axios";
+import { FormEvent, useState } from "react";
 import Modal from "react-modal"
 import closeImg from "../../assets/close.svg";
 import incomeImg from "../../assets/income.svg";
@@ -11,7 +12,22 @@ interface NewTransactionModalProps {
 }
 
 export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionModalProps) {
-    const [type, setType] = useState("deposit")
+    const [title, setTitle] = useState<string>("")
+    const [amount, setAmount] = useState<number>(0)
+    const [type, setType] = useState<"deposit" | "withdraw">("deposit")
+    const [category, setCategory] = useState<string>("")
+
+    async function handleCreateNewTransaction(ev: FormEvent) {
+        ev.preventDefault()
+        axios.post('http://localhost:3333/transaction', {
+            title,
+            amount,
+            type,
+            category
+        } )
+    }
+
+
 
     return (
         <Modal
@@ -29,7 +45,9 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
                 <img src={closeImg} alt="Fechar o modal" />
             </button>
 
-            <Container>
+            <Container
+                onSubmit={handleCreateNewTransaction}
+            >
                 <h2>Cadastrar Transação</h2>
 
                 <input
