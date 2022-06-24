@@ -23,7 +23,7 @@ export class UserService {
     }
 
     static async login({ email, password }: UserLoginProps) {
-        const user = await userRepository.login({ email, password })
-        return user
+        const userToken = await userRepository.login({ email, password })
+        return userToken
     }
 }

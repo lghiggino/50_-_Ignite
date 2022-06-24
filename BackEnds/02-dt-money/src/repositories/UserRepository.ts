@@ -57,7 +57,9 @@ export class UserRepository {
                 id: user.id
             }
 
-            const token = jwt.sign(userForToken, process.env.SECRET)
+            const options = { 'expiresIn': '1d' }
+
+            const token = jwt.sign(userForToken, process.env.SECRET, options)
 
             return token
         } catch (error) {
