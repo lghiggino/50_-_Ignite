@@ -1,5 +1,5 @@
 import { Global } from "@emotion/react";
-import { useState, Suspense } from "react";
+import { useState, Suspense, FormEvent } from "react";
 import { Dashboard } from "./components/Dashboard/Dashboard";
 import { Header } from "./components/Header/Header";
 import { LoginHeader } from "./components/LoginHeader/LoginHeader";
@@ -9,7 +9,7 @@ import { LoginModal } from "./components/LoginModal/LoginModal";
 import { RegisterModal } from "./components/RegisterModal/RegisterModal";
 
 export function App() {
-  const [user, setUser] = useState(true)
+  const [user, setUser] = useState(false)
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
@@ -77,6 +77,7 @@ export function App() {
       <LoginModal
         isOpen={isLoginModalOpen}
         onRequestClose={handleCloseLoginModal}
+        handleUserLogin={handleLogin}
       />
 
       <RegisterModal

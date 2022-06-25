@@ -1,3 +1,5 @@
+import axios from "axios";
+import { FormEvent, useState } from "react";
 import Modal from "react-modal"
 import closeImg from "../../assets/close.svg";
 import { Container } from "./LoginModal.styles";
@@ -8,6 +10,31 @@ interface LoginModalProps {
 }
 
 export function LoginModal({ isOpen, onRequestClose }: LoginModalProps) {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [error, setError] = useState("")
+
+    async function handleLogin(event: FormEvent) {
+        event.preventDefault()
+        console.log("loggin in with email, password: ", email, password)
+        try {
+            const { data } = await axios.post(
+                'http://localhost:3333/login',
+                { email, password },
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            )
+            console.log(data)
+            if (data) {
+                localStorage.setItem("@userToken", JSON.stringify(data))
+            }
+        } catch (error) {
+            setError("unable to login with this email and password")
+        }
+    }
 
     return (
         <Modal
@@ -30,15 +57,21 @@ export function LoginModal({ isOpen, onRequestClose }: LoginModalProps) {
 
                 <input
                     placeholder="Email"
+                    value={email}
+                    onChange={(ev) => setEmail(ev.target.value)}
                 />
 
                 <input
                     type="password"
                     placeholder="Password"
-                />
+                    value={password}
+                    onChange={(ev) => setPassword(ev.target.value)}
+                >
+                </input>
 
                 <button
                     type="submit"
+                    onClick={handleLogin}
                 >
                     Login
                 </button>
