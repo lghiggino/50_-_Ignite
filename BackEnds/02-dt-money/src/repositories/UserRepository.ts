@@ -38,7 +38,7 @@ export class UserRepository {
                 }
             })
 
-            if (!user){
+            if (!user) {
                 return "invalid email or password"
             }
 
@@ -65,6 +65,24 @@ export class UserRepository {
         } catch (error) {
             // console.log(error)
             throw new Error("Failed to login at Repository")
+        }
+    }
+
+    async findById(id: string) {
+        try {
+            const user = await prisma.user.findUnique({
+                where: {
+                    id: id
+                }
+            })
+
+            if (!user) {
+                return "invalid user"
+            }
+
+            return user
+        } catch (error) {
+            throw new Error("Unable to find user by Id")
         }
     }
 
