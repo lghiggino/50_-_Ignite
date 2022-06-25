@@ -3,10 +3,10 @@ import { TransactionCreationProps } from "../service/TransactionService";
 
 export class TransactionRepository{
     
-    async create({ title, amount, type, category, userId, User }: TransactionCreationProps) {
+   async create({ title, amount, type, category, userId, User }: TransactionCreationProps) {
         const transaction = await prisma.transactions.create({
             data: {
-                title, amount, type, category, userId, User
+                title, amount, type, category, userId
             }
         });
         return transaction
