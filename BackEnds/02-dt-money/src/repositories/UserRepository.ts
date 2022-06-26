@@ -46,7 +46,7 @@ export class UserRepository {
 
             if (!(user && passwordCorrect)) {
                 //how to set this as a 401 status code?
-                return "invalid email or password"
+                throw new Error("Failed to login at Repository")
             }
 
             const userForToken = {
@@ -57,11 +57,13 @@ export class UserRepository {
                 id: user.id
             }
 
-            const options = { 'expiresIn': '1d' }
+            const oneHour = 60 * 60
+
+            const options = { 'expiresIn': oneHour }
 
             const token = jwt.sign(userForToken, process.env.SECRET, options)
 
-            return token
+            return { userForToken, token }
         } catch (error) {
             // console.log(error)
             throw new Error("Failed to login at Repository")
