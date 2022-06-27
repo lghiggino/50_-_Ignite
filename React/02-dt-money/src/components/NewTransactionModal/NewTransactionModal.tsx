@@ -48,10 +48,6 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
         )
     }
 
-    //continuar aqui: https://app.rocketseat.com.br/node/chapter-ii-1/group/modal-and-forms/lesson/salvando-dados-do-form
-    //ver o que a API espera receber
-
-
     return (
         <Modal
             isOpen={isOpen}
