@@ -22,6 +22,7 @@ const getTokenFrom = (request: Request) => {
     return null
 }
 
+
 routes.post('/transaction', async (request, response) => {
     const { title, amount, type, category, userId, User } = request.body
 
@@ -38,7 +39,7 @@ routes.post('/transaction', async (request, response) => {
     const user = await UserService.findById(decodedToken.id)
 
     if (user === "invalid user") {
-        return  "invalid user"
+        return "invalid user"
     }
 
     const transaction = await TransactionService.create({
@@ -54,6 +55,26 @@ routes.post('/transaction', async (request, response) => {
 })
 
 routes.get('/transaction/:userId', async (request, response) => {
+    console.log("ALGUEM BATEU AQUI")
+    //check for token
+    const token = getTokenFrom(request)
+    if (!token) {
+        throw new ApiError('Decode token error', 400, 'Token invalid or expired')
+    }
+
+    const decodedToken: any = jwt.verify(token, process.env.SECRET as string)
+
+    if (!decodedToken.id) {
+        return response.status(401).json({ error: 'token missing or invalid' })
+    }
+    const user = await UserService.findById(decodedToken.id)
+
+    if (user === "invalid user") {
+        return  "invalid user"
+    }
+
+    //then get user data
+
     const { userId } = request.params
 
     const transactionList = await TransactionService.getByUserId(userId)
