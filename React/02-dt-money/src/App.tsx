@@ -40,22 +40,6 @@ export function App() {
         headers: { Authorization: parsedUser.token },
       }
 
-      // const config = {
-      //   method: 'get',
-      //   url: `http://localhost:3333/transaction/${userId}`,
-      //   headers: {
-      //     'Authorization': `Bearer ${parsedUser.token}`
-      //   }
-      // };
-
-      // axios(config)
-      //   .then(function (response: any) {
-      //     console.log(JSON.stringify(response.data));
-      //   })
-      //   .catch(function (error: any) {
-      //     console.log(error);
-      //   });
-
       const { data } = await axios.get(`http://localhost:3333/transaction/${userId}`, axiosConfig)
       return data
     }
