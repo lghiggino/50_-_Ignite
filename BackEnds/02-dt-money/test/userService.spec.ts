@@ -22,6 +22,4 @@ describe("userService", () => {
         expect(token.userForToken.email as string).toBe( "jfghiggino@gmail.com")
         expect(token.userForToken.id as string).toBe('77e359a7-e0d3-41d8-8e9d-4e96a8f0c257')
     })
-
-
 })
