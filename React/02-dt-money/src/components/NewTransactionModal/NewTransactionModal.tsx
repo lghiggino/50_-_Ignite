@@ -19,14 +19,37 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
 
     async function handleCreateNewTransaction(ev: FormEvent) {
         ev.preventDefault()
-        axios.post('http://localhost:3333/transaction', {
-            title,
-            amount,
-            type,
-            category
-        } )
+
+        if (!title || !amount || !type || !category) {
+            alert("must provide title, amount, type, category")
+            console.log(title, amount, type, category)
+            return
+        }
+
+        const localUser = localStorage.getItem("@userToken")
+
+        if (!localUser) {
+            alert("User not set")
+            return
+        }
+
+        const parsedUser = JSON.parse(localUser)
+
+        const token = `bearer ${parsedUser.token}`
+
+        const config = {
+            headers: { Authorization: token },
+        }
+
+        axios.post(
+            'http://localhost:3333/transaction',
+            { title, amount, type, category },
+            config
+        )
     }
 
+    //continuar aqui: https://app.rocketseat.com.br/node/chapter-ii-1/group/modal-and-forms/lesson/salvando-dados-do-form
+    //ver o que a API espera receber
 
 
     return (
@@ -51,10 +74,14 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
                 <h2>Cadastrar Transação</h2>
 
                 <input
+                    onChange={(ev) => setTitle(ev.target.value)}
+                    value={title}
                     placeholder="Titulo"
                 />
 
                 <input
+                    onChange={(ev) => setAmount(+ev.target.value)}
+                    value={amount}
                     placeholder="valor"
                     type="number"
                 />
@@ -82,6 +109,8 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
                 </TransactionTypeContainer>
 
                 <input
+                    onChange={(ev) => setCategory(ev.target.value)}
+                    value={category}
                     placeholder="Categoria"
                 />
 
