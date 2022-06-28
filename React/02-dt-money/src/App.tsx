@@ -30,65 +30,36 @@ export function App() {
 
 
   useEffect(() => {
-
     async function getUserTransactions() {
-
-      const parsedUser = JSON.parse(user as string)
+      console.log(user)
+      const parsedUser = await JSON.parse(user as string)
       const userId = parsedUser.userForToken.id
 
-      const axiosConfig = {
-        headers: { Authorization: parsedUser.token },
-      }
+      const config = {
+        method: 'get',
+        url: `http://localhost:3333/transaction/${userId}`,
+        headers: {
+          'Authorization': `Bearer ${parsedUser.token}`
+        }
+      };
 
-      const { data } = await axios.get(`http://localhost:3333/transaction/${userId}`, axiosConfig)
-      return data
+      axios(config)
+        .then(function (response: any) {
+          console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error: any) {
+          console.log(error);
+        });
     }
 
     const data = getUserTransactions()
     if (!data) {
       return
     } else {
-      console.log("DATA", data)
       setTransactions(data as any)
-      console.log("TRANSACTIONS", transactions)
     }
 
   }, [user])
-
-  // useEffect(() => {
-  // if (!user) {
-  //   return
-  // }
-  // const getUserData = async () => {
-  //   console.log(user)
-  //   const parsedUser = JSON.parse(user as string)
-  //   const userId = parsedUser.userForToken.id
-
-  //   const token = `bearer ${parsedUser.token}`
-
-  //   const config = {
-  //     headers: { Authorization: token },
-  //   }
-
-  //   const { data } = await axios.get(
-  //     `http://localhost:3000/transaction/${userId}`,
-  //     config
-  //   )
-
-  //   if (!data) {
-  //     return []
-  //   }
-  //   if (data) {
-  //     setTransactions(data)
-  //     console.log(transactions)
-  //   }
-  // }
-
-  // getUserData().catch(error => {
-  //   console.error(error)
-  // })
-  // }, [user])
-
 
 
   function handleOpenNewTransactionModal() {
@@ -141,7 +112,7 @@ export function App() {
           fallback={<h1>loading....</h1>}
         >
           <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
-          <Dashboard />
+          <Dashboard transactionList={transactions as []} />
         </Suspense>
       }
 
