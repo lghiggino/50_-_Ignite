@@ -76,7 +76,7 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
                 />
 
                 <input
-                    onChange={(ev) => setAmount(+ev.target.value)}
+                    onChange={(ev) => setAmount(Number(ev.target.value))}
                     value={amount}
                     placeholder="valor"
                     type="number"
