@@ -50,6 +50,7 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
 
     return (
         <Modal
+            ariaHideApp={false}
             isOpen={isOpen}
             onRequestClose={onRequestClose}
             overlayClassName="react-modal-overlay"

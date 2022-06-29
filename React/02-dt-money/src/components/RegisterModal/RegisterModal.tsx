@@ -11,6 +11,7 @@ export function RegisterModal({ isOpen, onRequestClose }: RegisterModalProps) {
 
     return (
         <Modal
+        ariaHideApp={false}
             isOpen={isOpen}
             onRequestClose={onRequestClose}
             overlayClassName="react-modal-overlay"

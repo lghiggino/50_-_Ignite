@@ -15,12 +15,12 @@ interface LoginModalProps {
 export function LoginModal({ isOpen, onRequestClose, onChangeUser, onError }: LoginModalProps) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    
+
     async function handleLogin(event: FormEvent) {
         event.preventDefault()
         console.log("loggin in with email, password: ", email, password)
 
-        if(!email || !password){
+        if (!email || !password) {
             onError("Must provide email and password")
             return
         }
@@ -50,6 +50,7 @@ export function LoginModal({ isOpen, onRequestClose, onChangeUser, onError }: Lo
 
     return (
         <Modal
+        ariaHideApp={false}
             isOpen={isOpen}
             onRequestClose={onRequestClose}
             overlayClassName="react-modal-overlay"
