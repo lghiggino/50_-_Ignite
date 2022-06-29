@@ -31,7 +31,8 @@ export function App() {
 
   useEffect(() => {
     async function getUserTransactions() {
-      console.log(user)
+      if (!user) { return }
+      
       const parsedUser = await JSON.parse(user as string)
       const userId = parsedUser.userForToken.id
 
@@ -112,7 +113,7 @@ export function App() {
           fallback={<h1>loading....</h1>}
         >
           <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
-          <Dashboard transactionList={transactions as []} />
+          <Dashboard />
         </Suspense>
       }
 
