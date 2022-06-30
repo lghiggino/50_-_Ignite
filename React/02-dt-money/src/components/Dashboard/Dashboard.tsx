@@ -4,13 +4,20 @@ import { TransactionsTable } from "../TransactionsTable/TransactionsTable";
 
 type DashboardProps = {
     userToken?: string
+    transactionList: any[]
 }
 
-export function Dashboard() {
+export function Dashboard({ transactionList }: DashboardProps) {
+    if (!transactionList) {
+        return (
+            <></>
+        )
+    }
+
     return (
         <Container>
             <Summary />
-            <TransactionsTable />
+            <TransactionsTable transactionList={transactionList} />
         </Container>
     )
 }

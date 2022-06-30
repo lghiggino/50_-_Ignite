@@ -36,7 +36,6 @@ export function LoginModal({ isOpen, onRequestClose, onChangeUser, onError }: Lo
                     }
                 }
             )
-            console.log(data)
 
             if (data) {
                 localStorage.setItem("@userToken", JSON.stringify(data))

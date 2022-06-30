@@ -8,10 +8,39 @@ import { NewTransactionModal } from "./components/NewTransactionModal/NewTransac
 import { LoginModal } from "./components/LoginModal/LoginModal";
 import { RegisterModal } from "./components/RegisterModal/RegisterModal";
 import axios from "axios";
-import { isBigInt64Array } from "util/types";
+
+type User = {
+  token: string,
+  userForToken: {
+    email: string
+    firstname: string
+    id: string
+    lastname: string
+    phonenumber: string
+  }
+}
+
+export type TransactionType = {
+  id: number
+  title: string
+  amount: number
+  type: 'deposit' | 'withdraw'
+  category: string
+  createdAt: string
+  userId: number
+}
 
 export function App() {
-  const [user, setUser] = useState<null | string>(null)
+  const [user, setUser] = useState<User>({
+    token: "",
+    userForToken: {
+      email: "",
+      firstname: "",
+      id: "",
+      lastname: "",
+      phonenumber: "",
+    }
+  })
   const [error, setError] = useState<string>("")
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -24,43 +53,57 @@ export function App() {
     if (!localToken) {
       return
     }
-    setUser(localToken)
+    const parsedLocalToken: User = JSON.parse(localToken)
+    setUser(parsedLocalToken)
+
   }, [])
 
-
-
   useEffect(() => {
-    async function getUserTransactions() {
-      if (!user) { return }
-      
-      const parsedUser = await JSON.parse(user as string)
-      const userId = parsedUser.userForToken.id
-
-      const config = {
-        method: 'get',
-        url: `http://localhost:3333/transaction/${userId}`,
-        headers: {
-          'Authorization': `Bearer ${parsedUser.token}`
-        }
-      };
-
-      axios(config)
-        .then(function (response: any) {
-          console.log(JSON.stringify(response.data));
-        })
-        .catch(function (error: any) {
-          console.log(error);
-        });
-    }
-
-    const data = getUserTransactions()
-    if (!data) {
-      return
-    } else {
-      setTransactions(data as any)
-    }
-
+    console.log("Mudou o user")
+    console.log(user)
+    console.log(typeof user)
   }, [user])
+
+
+
+  // useEffect(() => {
+  //   async function getUserTransactions() {
+  //     if (!user) {
+  //       setTransactions([])
+  //     }
+
+  //     console.log(typeof user)
+
+  //     const parsedUser = await JSON.parse(user as string)
+
+  //     console.log("parsedUser", typeof parsedUser)
+  //     const userId: string = parsedUser.userForToken.id
+
+  //     const config = {
+  //       method: 'get',
+  //       url: `http://localhost:3333/transaction/${userId}`,
+  //       headers: {
+  //         'Authorization': `Bearer ${parsedUser.token}`
+  //       }
+  //     };
+
+  //     axios(config)
+  //       .then(function (response: any) {
+  //         console.log(JSON.stringify(response.data));
+  //       })
+  //       .catch(function (error: any) {
+  //         console.log(error);
+  //       });
+  //   }
+
+  //   const data = getUserTransactions()
+  //   if (!data) {
+  //     return
+  //   } else {
+  //     setTransactions(data as any)
+  //   }
+
+  // }, [user])
 
 
   function handleOpenNewTransactionModal() {
@@ -92,7 +135,7 @@ export function App() {
     <div className="App">
       <Global styles={GlobalStyles} />
 
-      {!user &&
+      {!user.token &&
         <Suspense
           fallback={<h1>loading....</h1>}
         >
@@ -108,12 +151,12 @@ export function App() {
 
       }
 
-      {user &&
+      {user.token &&
         <Suspense
           fallback={<h1>loading....</h1>}
         >
           <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
-          <Dashboard />
+          <Dashboard transactionList={transactions} />
         </Suspense>
       }
 
