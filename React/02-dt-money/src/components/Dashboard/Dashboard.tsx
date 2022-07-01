@@ -4,7 +4,7 @@ import { TransactionsTable } from "../TransactionsTable/TransactionsTable";
 
 type DashboardProps = {
     userToken?: string
-    transactionList: any[]
+    transactionList: any
 }
 
 export function Dashboard({ transactionList }: DashboardProps) {

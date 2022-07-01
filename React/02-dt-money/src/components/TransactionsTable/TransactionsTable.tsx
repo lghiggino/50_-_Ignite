@@ -1,33 +1,67 @@
+import { Key, ReactElement, JSXElementConstructor, ReactFragment, ReactPortal } from "react";
 import { Container } from "./TransactionsTable.styles";
 
-export function TransactionsTable(){
-    return(
-        <Container>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Título</th>
-                        <th>Valor</th>
-                        <th>Categoria</th>
-                        <th>Data</th>
-                    </tr>
-                </thead>
+type TransactionsTableProps = {
+    userToken?: string
+    transactionList: any
+}
 
-                <tbody>
-                    <tr>
-                        <td>Desenvolvimento de Website</td>
-                        <td className="deposit">R$ 12.000</td>
-                        <td>Desenvolvimento</td>
-                        <td>20/06/2021</td>
-                    </tr>
-                    <tr>
-                        <td>Aluguel</td>
-                        <td className="withdraw">- R$ 2.000</td>
-                        <td>Casa</td>
-                        <td>17/06/2021</td>
-                    </tr>
-                </tbody>
-            </table>
+type TransactionProps = {
+    amount: number
+    category: string
+    createdAt: string
+    id: string
+    title: string
+    type: "credit" | "withdraw"
+    userId: string
+}
+
+export function TransactionsTable({ transactionList }: TransactionsTableProps) {
+    console.log(transactionList)
+
+    if (!transactionList) {
+        return (
+            <Container>
+                <div>
+                    <h2>
+                        Sem transações por enquanto
+                    </h2>
+                </div>
+            </Container>
+        )
+    }
+
+    if (transactionList) {
+        return (
+            <Container>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Valor</th>
+                            <th>Categoria</th>
+                            <th>Data</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        {transactionList.data.map((t: TransactionProps) => (
+                            <tr key={t.id}>
+                                <td>{t.title}</td>
+                                <td className={t.type}>R$ {t.amount}</td>
+                                <td>{t.category}</td>
+                                <td>{t.createdAt}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </Container>
+        )
+    }
+
+    return (
+        <Container>
+            <h1>please login to see your transactions</h1>
         </Container>
     )
 }
