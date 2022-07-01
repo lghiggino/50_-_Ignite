@@ -87,8 +87,7 @@ export function App() {
       }
 
       getTransactions()
-
-      return () => {}
+      return () => { }
     }
 
     console.log("Eu NUNCA deveria ser logado")
@@ -141,7 +140,7 @@ export function App() {
 
       }
 
-      {user.token &&
+      {user.token && transactions &&
         <Suspense
           fallback={<h1>loading....</h1>}
         >
