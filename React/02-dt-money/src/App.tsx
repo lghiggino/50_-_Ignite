@@ -45,7 +45,7 @@ export function App() {
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
-  const [transactions, setTransactions] = useState([])
+  const [transactions, setTransactions] = useState<any>(null)
 
   useEffect(() => {
     const localToken = localStorage.getItem("@userToken")
@@ -58,52 +58,42 @@ export function App() {
 
   }, [])
 
+  async function getUserTransactions() {
+    const axiosConfig = {
+      headers: {
+        'Authorization': `Bearer ${user.token}`
+      }
+    };
+
+    const { data } = await axios.get(
+      `http://localhost:3333/transaction/${user.userForToken.id}`,
+      axiosConfig
+    )
+
+    return data
+  }
+
+
   useEffect(() => {
-    console.log("Mudou o user")
-    console.log(user)
-    console.log(typeof user)
+    if (!user.token) {
+      return
+    }
+
+    if (user.token) {
+      const getTransactions = async () => {
+        const response = await getUserTransactions()
+        console.log("response", response)
+        setTransactions(response)
+      }
+
+      getTransactions()
+
+      return () => {}
+    }
+
+    console.log("Eu NUNCA deveria ser logado")
   }, [user])
 
-
-
-  // useEffect(() => {
-  //   async function getUserTransactions() {
-  //     if (!user) {
-  //       setTransactions([])
-  //     }
-
-  //     console.log(typeof user)
-
-  //     const parsedUser = await JSON.parse(user as string)
-
-  //     console.log("parsedUser", typeof parsedUser)
-  //     const userId: string = parsedUser.userForToken.id
-
-  //     const config = {
-  //       method: 'get',
-  //       url: `http://localhost:3333/transaction/${userId}`,
-  //       headers: {
-  //         'Authorization': `Bearer ${parsedUser.token}`
-  //       }
-  //     };
-
-  //     axios(config)
-  //       .then(function (response: any) {
-  //         console.log(JSON.stringify(response.data));
-  //       })
-  //       .catch(function (error: any) {
-  //         console.log(error);
-  //       });
-  //   }
-
-  //   const data = getUserTransactions()
-  //   if (!data) {
-  //     return
-  //   } else {
-  //     setTransactions(data as any)
-  //   }
-
-  // }, [user])
 
 
   function handleOpenNewTransactionModal() {
