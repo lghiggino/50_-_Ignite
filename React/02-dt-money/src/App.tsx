@@ -30,8 +30,6 @@ export type TransactionProps = {
   userId: string
 }
 
-
-
 export function App() {
   const [user, setUser] = useState<User>({
     token: "",
@@ -43,11 +41,12 @@ export function App() {
       phonenumber: "",
     }
   })
+  const [transactions, setTransactions] = useState<TransactionProps[]>([])
   const [error, setError] = useState<string>("")
+  
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
-  const [transactions, setTransactions] = useState<any>(null)
 
   useEffect(() => {
     const localToken = localStorage.getItem("@userToken")
