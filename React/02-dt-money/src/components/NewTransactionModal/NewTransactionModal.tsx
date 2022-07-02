@@ -18,7 +18,7 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
     const [category, setCategory] = useState<string>("")
 
     async function handleCreateNewTransaction(ev: FormEvent) {
-        ev.preventDefault()
+        // ev.preventDefault()
 
         if (!title || !amount || !type || !category) {
             alert("must provide title, amount, type, category")
