@@ -20,15 +20,17 @@ type User = {
   }
 }
 
-export type TransactionType = {
-  id: number
-  title: string
+export type TransactionProps = {
   amount: number
-  type: 'deposit' | 'withdraw'
   category: string
   createdAt: string
-  userId: number
+  id: string
+  title: string
+  type: "credit" | "withdraw"
+  userId: string
 }
+
+
 
 export function App() {
   const [user, setUser] = useState<User>({
@@ -82,8 +84,7 @@ export function App() {
     if (user.token) {
       const getTransactions = async () => {
         const response = await getUserTransactions()
-        console.log("response", response)
-        setTransactions(response)
+        setTransactions(response.data)
       }
 
       getTransactions()

@@ -1,19 +1,9 @@
 import { Key, ReactElement, JSXElementConstructor, ReactFragment, ReactPortal } from "react";
+import { TransactionProps } from "../../App";
 import { Container } from "./TransactionsTable.styles";
 
 type TransactionsTableProps = {
-    userToken?: string
-    transactionList: any
-}
-
-type TransactionProps = {
-    amount: number
-    category: string
-    createdAt: string
-    id: string
-    title: string
-    type: "credit" | "withdraw"
-    userId: string
+    transactionList: TransactionProps[]
 }
 
 export function TransactionsTable({ transactionList }: TransactionsTableProps) {
@@ -45,7 +35,7 @@ export function TransactionsTable({ transactionList }: TransactionsTableProps) {
                     </thead>
                     
                     <tbody>
-                        {transactionList.data.map((t: TransactionProps) => (
+                        {transactionList.map((t: TransactionProps) => (
                             <tr key={t.id}>
                                 <td>{t.title}</td>
                                 <td className={t.type}>R$ {t.amount}</td>
