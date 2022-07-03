@@ -8,6 +8,7 @@ import { NewTransactionModal } from "./components/NewTransactionModal/NewTransac
 import { LoginModal } from "./components/LoginModal/LoginModal";
 import { RegisterModal } from "./components/RegisterModal/RegisterModal";
 import axios from "axios";
+import { TransactionsContext } from "./TransactionsContext";
 
 type User = {
   token: string,
@@ -43,7 +44,7 @@ export function App() {
   })
   const [transactions, setTransactions] = useState<TransactionProps[]>([])
   const [error, setError] = useState<string>("")
-  
+
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
@@ -121,52 +122,54 @@ export function App() {
 
 
   return (
-    <div className="App">
-      <Global styles={GlobalStyles} />
+    <TransactionsContext.Provider value={[]}>
+      <div className="App">
+        <Global styles={GlobalStyles} />
 
-      {!user.token &&
-        <Suspense
-          fallback={<h1>loading....</h1>}
-        >
-          <LoginHeader
-            setUser={setUser}
-            onOpenLoginModal={handleOpenLoginModal}
-            onOpenRegisterModal={handleOpenRegisterModal}
-          />
-          <div>
-            <h1 style={{ textAlign: 'center' }}>Welcome to DtMoney</h1>
-          </div>
-        </Suspense>
+        {!user.token &&
+          <Suspense
+            fallback={<h1>loading....</h1>}
+          >
+            <LoginHeader
+              setUser={setUser}
+              onOpenLoginModal={handleOpenLoginModal}
+              onOpenRegisterModal={handleOpenRegisterModal}
+            />
+            <div>
+              <h1 style={{ textAlign: 'center' }}>Welcome to DtMoney</h1>
+            </div>
+          </Suspense>
 
-      }
+        }
 
-      {user.token && transactions &&
-        <Suspense
-          fallback={<h1>loading....</h1>}
-        >
-          <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
-          <Dashboard transactionList={transactions} />
-        </Suspense>
-      }
+        {user.token && transactions &&
+          <Suspense
+            fallback={<h1>loading....</h1>}
+          >
+            <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
+            <Dashboard transactionList={transactions} />
+          </Suspense>
+        }
 
-      <NewTransactionModal
-        isOpen={isNewTransactionModalOpen}
-        onRequestClose={handleCloseNewTransactionModal}
-      />
+        <NewTransactionModal
+          isOpen={isNewTransactionModalOpen}
+          onRequestClose={handleCloseNewTransactionModal}
+        />
 
-      <LoginModal
-        isOpen={isLoginModalOpen}
-        onRequestClose={handleCloseLoginModal}
-        onChangeUser={setUser}
-        onError={setError}
-      />
+        <LoginModal
+          isOpen={isLoginModalOpen}
+          onRequestClose={handleCloseLoginModal}
+          onChangeUser={setUser}
+          onError={setError}
+        />
 
-      <RegisterModal
-        isOpen={isRegisterModalOpen}
-        onRequestClose={handleCloseRegisterModal}
-      />
+        <RegisterModal
+          isOpen={isRegisterModalOpen}
+          onRequestClose={handleCloseRegisterModal}
+        />
 
-    </div>
+      </div>
+    </TransactionsContext.Provider>
   );
 }
 

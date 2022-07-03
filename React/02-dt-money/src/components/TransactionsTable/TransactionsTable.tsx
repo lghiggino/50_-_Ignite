@@ -1,4 +1,5 @@
-import { Key, ReactElement, JSXElementConstructor, ReactFragment, ReactPortal } from "react";
+import { useContext } from "react";
+import { TransactionsContext } from "../../TransactionsContext";
 import { TransactionProps } from "../../App";
 import { Container } from "./TransactionsTable.styles";
 
@@ -7,7 +8,8 @@ type TransactionsTableProps = {
 }
 
 export function TransactionsTable({ transactionList }: TransactionsTableProps) {
-    console.log(transactionList)
+    const data = useContext(TransactionsContext)
+    console.log("data em TransactionsTable", data)
 
     if (!transactionList) {
         return (
