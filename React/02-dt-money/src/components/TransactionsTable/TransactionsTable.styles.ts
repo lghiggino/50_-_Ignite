@@ -30,7 +30,15 @@ export const Container = styled.div`
                 color: var(--green);
             }
 
+            &.deposit {
+                color: var(--green);
+            }
+
             &.withdraw {
+                color: var(--red);
+            }
+
+            &.debit {
                 color: var(--red);
             }
         }
