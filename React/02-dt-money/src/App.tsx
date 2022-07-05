@@ -10,7 +10,7 @@ import { RegisterModal } from "./components/RegisterModal/RegisterModal";
 import axios from "axios";
 import { TransactionsContext } from "./TransactionsContext";
 
-type User = {
+export type User = {
   token: string,
   userForToken: {
     email: string
@@ -122,54 +122,54 @@ export function App() {
 
 
   return (
-    <TransactionsContext.Provider value={[]}>
-      <div className="App">
-        <Global styles={GlobalStyles} />
 
-        {!user.token &&
-          <Suspense
-            fallback={<h1>loading....</h1>}
-          >
-            <LoginHeader
-              setUser={setUser}
-              onOpenLoginModal={handleOpenLoginModal}
-              onOpenRegisterModal={handleOpenRegisterModal}
-            />
-            <div>
-              <h1 style={{ textAlign: 'center' }}>Welcome to DtMoney</h1>
-            </div>
-          </Suspense>
+    <div className="App">
+      <Global styles={GlobalStyles} />
 
-        }
+      {!user.token &&
+        <Suspense
+          fallback={<h1>loading....</h1>}
+        >
+          <LoginHeader
+            setUser={setUser}
+            onOpenLoginModal={handleOpenLoginModal}
+            onOpenRegisterModal={handleOpenRegisterModal}
+          />
+          <div>
+            <h1 style={{ textAlign: 'center' }}>Welcome to DtMoney</h1>
+          </div>
+        </Suspense>
 
-        {user.token && transactions &&
-          <Suspense
-            fallback={<h1>loading....</h1>}
-          >
-            <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
-            <Dashboard transactionList={transactions} />
-          </Suspense>
-        }
+      }
 
-        <NewTransactionModal
-          isOpen={isNewTransactionModalOpen}
-          onRequestClose={handleCloseNewTransactionModal}
-        />
+      {user.token && transactions &&
+        <Suspense
+          fallback={<h1>loading....</h1>}
+        >
+          <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
+          <Dashboard transactionList={transactions} />
+        </Suspense>
+      }
 
-        <LoginModal
-          isOpen={isLoginModalOpen}
-          onRequestClose={handleCloseLoginModal}
-          onChangeUser={setUser}
-          onError={setError}
-        />
+      <NewTransactionModal
+        isOpen={isNewTransactionModalOpen}
+        onRequestClose={handleCloseNewTransactionModal}
+      />
 
-        <RegisterModal
-          isOpen={isRegisterModalOpen}
-          onRequestClose={handleCloseRegisterModal}
-        />
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onRequestClose={handleCloseLoginModal}
+        onChangeUser={setUser}
+        onError={setError}
+      />
 
-      </div>
-    </TransactionsContext.Provider>
+      <RegisterModal
+        isOpen={isRegisterModalOpen}
+        onRequestClose={handleCloseRegisterModal}
+      />
+
+    </div>
+
   );
 }
 
