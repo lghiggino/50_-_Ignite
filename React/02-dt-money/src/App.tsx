@@ -1,5 +1,6 @@
+import { useState, Suspense, useEffect, FormEvent, SyntheticEvent } from "react";
+import axios from "axios";
 import { Global } from "@emotion/react";
-import { useState, Suspense, FormEvent, useEffect } from "react";
 import { Dashboard } from "./components/Dashboard/Dashboard";
 import { Header } from "./components/Header/Header";
 import { LoginHeader } from "./components/LoginHeader/LoginHeader";
@@ -7,8 +8,8 @@ import { GlobalStyles } from "./styles/global";
 import { NewTransactionModal } from "./components/NewTransactionModal/NewTransactionModal";
 import { LoginModal } from "./components/LoginModal/LoginModal";
 import { RegisterModal } from "./components/RegisterModal/RegisterModal";
-import axios from "axios";
-import { TransactionsContext } from "./TransactionsContext";
+
+import { TransactionsContext, TransactionsProvider } from "./TransactionsContext";
 
 export type User = {
   token: string,
@@ -42,6 +43,7 @@ export function App() {
       phonenumber: "",
     }
   })
+
   const [transactions, setTransactions] = useState<TransactionProps[]>([])
   const [error, setError] = useState<string>("")
 
@@ -57,7 +59,6 @@ export function App() {
     }
     const parsedLocalToken: User = JSON.parse(localToken)
     setUser(parsedLocalToken)
-
   }, [])
 
   async function getUserTransactions() {
@@ -94,8 +95,6 @@ export function App() {
     console.log("Eu NUNCA deveria ser logado")
   }, [user])
 
-
-
   function handleOpenNewTransactionModal() {
     setIsNewTransactionModalOpen(true);
   }
@@ -122,8 +121,8 @@ export function App() {
 
 
   return (
-
     <div className="App">
+
       <Global styles={GlobalStyles} />
 
       {!user.token &&
@@ -139,7 +138,6 @@ export function App() {
             <h1 style={{ textAlign: 'center' }}>Welcome to DtMoney</h1>
           </div>
         </Suspense>
-
       }
 
       {user.token && transactions &&
@@ -167,9 +165,7 @@ export function App() {
         isOpen={isRegisterModalOpen}
         onRequestClose={handleCloseRegisterModal}
       />
-
     </div>
-
   );
 }
 
