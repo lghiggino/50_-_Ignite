@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import { TransactionsContext } from "../../TransactionsContext";
-import { TransactionProps } from "../../App";
+import { Transaction } from "../../App";
 import { Container } from "./TransactionsTable.styles";
 
 type TransactionsTableProps = {
-    transactionList: TransactionProps[]
+    transactionList: Transaction[]
 }
 
 export function TransactionsTable({ transactionList }: TransactionsTableProps) {
@@ -37,7 +37,7 @@ export function TransactionsTable({ transactionList }: TransactionsTableProps) {
                     </thead>
 
                     <tbody>
-                        {transactionList.map((t: TransactionProps) => (
+                        {transactionList.map((t: Transaction) => (
                             <tr key={t.id}>
                                 <td>{t.title}</td>
                                 <td className={t.type}>

@@ -8,6 +8,8 @@ type DashboardProps = {
 }
 
 export function Dashboard({ transactionList }: DashboardProps) {
+    console.log(transactionList)
+
     if (!transactionList) {
         return (
             <></>

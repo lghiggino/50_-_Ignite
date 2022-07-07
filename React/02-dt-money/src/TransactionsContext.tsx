@@ -1,16 +1,16 @@
 import axios from "axios";
 import { createContext, ReactNode, useEffect, useState } from "react";
-import { TransactionProps } from "./App";
+import { Transaction } from "./App";
 
 interface TransactionsProviderProps {
     children: ReactNode
     user: any
 }
 
-export const TransactionsContext = createContext([]);
+export const TransactionsContext = createContext<Transaction[]>([]);
 
 export function TransactionsProvider({ children, user }: TransactionsProviderProps) {
-    const [transactions, setTransactions] = useState<TransactionProps[]>([])
+    const [transactions, setTransactions] = useState<Transaction[]>([])
 
     async function getUserTransactions(user: any) {
         const axiosConfig = {
@@ -47,7 +47,7 @@ export function TransactionsProvider({ children, user }: TransactionsProviderPro
 
 
     return (
-        <TransactionsContext.Provider value={[]}>
+        <TransactionsContext.Provider value={transactions}>
             {children}
         </TransactionsContext.Provider>
     )
