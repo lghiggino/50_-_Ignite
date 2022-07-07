@@ -43,7 +43,7 @@ export function App() {
     }
   })
 
-  const transactions = useContext(TransactionsContext)
+  const [transactions, setTransactions] = useState<Transaction[]>([])
   const [error, setError] = useState<string>("")
 
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false);
@@ -60,39 +60,6 @@ export function App() {
     setUser(parsedLocalToken)
   }, [])
 
-  // async function getUserTransactions() {
-  //   const axiosConfig = {
-  //     headers: {
-  //       'Authorization': `Bearer ${user.token}`
-  //     }
-  //   };
-
-  //   const { data } = await axios.get(
-  //     `http://localhost:3333/transaction/${user.userForToken.id}`,
-  //     axiosConfig
-  //   )
-
-  //   return data
-  // }
-
-
-  // useEffect(() => {
-  //   if (!user.token) {
-  //     return
-  //   }
-
-  //   if (user.token) {
-  //     const getTransactions = async () => {
-  //       const response = await getUserTransactions()
-  //       setTransactions(response.data)
-  //     }
-
-  //     getTransactions()
-  //     return () => { }
-  //   }
-
-  //   console.log("Eu NUNCA deveria ser logado")
-  // }, [user])
 
   function handleOpenNewTransactionModal() {
     setIsNewTransactionModalOpen(true);
@@ -124,28 +91,28 @@ export function App() {
 
       <Global styles={GlobalStyles} />
 
-      <TransactionsProvider user={user}>
-        {!user.token &&
-          <Suspense
-            fallback={<h1>loading....</h1>}
-          >
-            <LoginHeader
-              setUser={setUser}
-              onOpenLoginModal={handleOpenLoginModal}
-              onOpenRegisterModal={handleOpenRegisterModal}
-            />
-            <div>
-              <h1 style={{ textAlign: 'center' }}>Welcome to DtMoney</h1>
-            </div>
-          </Suspense>
-        }
 
+      {!user.token &&
+        <Suspense
+          fallback={<h1>loading....</h1>}
+        >
+          <LoginHeader
+            setUser={setUser}
+            onOpenLoginModal={handleOpenLoginModal}
+            onOpenRegisterModal={handleOpenRegisterModal}
+          />
+          <div>
+            <h1 style={{ textAlign: 'center' }}>Welcome to DtMoney</h1>
+          </div>
+        </Suspense>
+      }
+      <TransactionsProvider user={user}>
         {user.token && transactions &&
           <Suspense
             fallback={<h1>loading....</h1>}
           >
             <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
-            <Dashboard transactionList={transactions} />
+            <Dashboard />
           </Suspense>
         }
 

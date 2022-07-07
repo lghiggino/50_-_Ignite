@@ -1,25 +1,26 @@
+import { useContext } from "react";
+import { TransactionsContext } from "../../TransactionsContext";
 import { Container } from "../Dashboard/Dashboard.styles";
 import { Summary } from "../Summary/Summary";
 import { TransactionsTable } from "../TransactionsTable/TransactionsTable";
 
-type DashboardProps = {
-    userToken?: string
-    transactionList: any
-}
 
-export function Dashboard({ transactionList }: DashboardProps) {
-    console.log(transactionList)
+export function Dashboard() {
+    const transactions = useContext(TransactionsContext)
 
-    if (!transactionList) {
+
+    if (!transactions) {
         return (
-            <></>
+            <Container>
+                <p>Não há transações disponíveis para esse usuário</p>
+            </Container>
         )
     }
 
     return (
         <Container>
             <Summary />
-            <TransactionsTable transactionList={transactionList} />
+            <TransactionsTable transactionList={transactions} />
         </Container>
     )
 }

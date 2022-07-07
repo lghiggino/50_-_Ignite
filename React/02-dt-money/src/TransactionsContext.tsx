@@ -28,6 +28,7 @@ export function TransactionsProvider({ children, user }: TransactionsProviderPro
     }
 
     useEffect(() => {
+        console.log("dentro de TransactionsContext useEffect", user)
         if (!user.token) {
             return
         }
