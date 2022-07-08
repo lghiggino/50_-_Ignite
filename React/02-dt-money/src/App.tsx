@@ -106,6 +106,7 @@ export function App() {
           </div>
         </Suspense>
       }
+
       <TransactionsProvider user={user}>
         {user.token && transactions &&
           <Suspense
@@ -116,24 +117,26 @@ export function App() {
           </Suspense>
         }
 
-        <NewTransactionModal
-          isOpen={isNewTransactionModalOpen}
-          onRequestClose={handleCloseNewTransactionModal}
-        />
 
-        <LoginModal
-          isOpen={isLoginModalOpen}
-          onRequestClose={handleCloseLoginModal}
-          onChangeUser={setUser}
-          onError={setError}
-        />
-
-        <RegisterModal
-          isOpen={isRegisterModalOpen}
-          onRequestClose={handleCloseRegisterModal}
-        />
 
       </TransactionsProvider>
+
+      <NewTransactionModal
+        isOpen={isNewTransactionModalOpen}
+        onRequestClose={handleCloseNewTransactionModal}
+      />
+
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onRequestClose={handleCloseLoginModal}
+        onChangeUser={setUser}
+        onError={setError}
+      />
+
+      <RegisterModal
+        isOpen={isRegisterModalOpen}
+        onRequestClose={handleCloseRegisterModal}
+      />u
     </div>
   );
 }
