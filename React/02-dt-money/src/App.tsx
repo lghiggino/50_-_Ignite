@@ -61,31 +61,29 @@ export function App() {
     setUser(parsedLocalToken)
   }, [])
 
-
-  function handleOpenNewTransactionModal() {
-    setIsNewTransactionModalOpen(true);
+  function handleOpenModal(modalName: string) {
+    if (modalName === 'newTransaction') {
+      setIsNewTransactionModalOpen(true);
+    }
+    if (modalName === 'login') {
+      setIsLoginModalOpen(true)
+    }
+    if (modalName === 'register') {
+      setIsRegisterModalOpen(true)
+    }
   }
 
-  function handleCloseNewTransactionModal() {
-    setIsNewTransactionModalOpen(false);
+  function handleCloseModal(modalName: string) {
+    if (modalName === 'newTransaction') {
+      setIsNewTransactionModalOpen(false);
+    }
+    if (modalName === 'login') {
+      setIsLoginModalOpen(false)
+    }
+    if (modalName === 'register') {
+      setIsRegisterModalOpen(false)
+    }
   }
-
-  function handleOpenLoginModal() {
-    setIsLoginModalOpen(true)
-  }
-
-  function handleCloseLoginModal() {
-    setIsLoginModalOpen(false)
-  }
-
-  function handleOpenRegisterModal() {
-    setIsRegisterModalOpen(true)
-  }
-
-  function handleCloseRegisterModal() {
-    setIsRegisterModalOpen(false)
-  }
-
 
   return (
     <div className="App">
@@ -99,8 +97,8 @@ export function App() {
           >
             <LoginHeader
               setUser={setUser}
-              onOpenLoginModal={handleOpenLoginModal}
-              onOpenRegisterModal={handleOpenRegisterModal}
+              onOpenLoginModal={() => { handleOpenModal('login') }}
+              onOpenRegisterModal={() => { handleOpenModal('register') }}
             />
             <div>
               <h1 style={{ textAlign: 'center' }}>Welcome to DtMoney</h1>
@@ -113,7 +111,7 @@ export function App() {
             <Suspense
               fallback={<h1>loading....</h1>}
             >
-              <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
+              <Header onOpenNewTransactionModal={() => { handleOpenModal('newTransaction') }} />
               <Dashboard />
             </Suspense>
           }
@@ -122,19 +120,19 @@ export function App() {
 
         <NewTransactionModal
           isOpen={isNewTransactionModalOpen}
-          onRequestClose={handleCloseNewTransactionModal}
+          onRequestClose={() => {handleCloseModal('newTransactions')}}
         />
 
         <LoginModal
           isOpen={isLoginModalOpen}
-          onRequestClose={handleCloseLoginModal}
+          onRequestClose={() => {handleCloseModal('login')}}
           onChangeUser={setUser}
           onError={setError}
         />
 
         <RegisterModal
           isOpen={isRegisterModalOpen}
-          onRequestClose={handleCloseRegisterModal}
+          onRequestClose={() => {handleCloseModal('register')}}
         />
       </UserProvider>
     </div>
