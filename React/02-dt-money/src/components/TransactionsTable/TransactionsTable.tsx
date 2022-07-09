@@ -3,15 +3,10 @@ import { TransactionsContext } from "../../TransactionsContext";
 import { Transaction } from "../../App";
 import { Container } from "./TransactionsTable.styles";
 
-type TransactionsTableProps = {
-    transactionList: Transaction[]
-}
+export function TransactionsTable() {
+    const transactions = useContext(TransactionsContext)
 
-export function TransactionsTable({ transactionList }: TransactionsTableProps) {
-    const data = useContext(TransactionsContext)
-    console.log("data em TransactionsTable", data)
-
-    if (!transactionList) {
+    if (!transactions) {
         return (
             <Container>
                 <div>
@@ -23,7 +18,7 @@ export function TransactionsTable({ transactionList }: TransactionsTableProps) {
         )
     }
 
-    if (transactionList) {
+    if (transactions) {
         return (
             <Container>
                 <table>
@@ -37,7 +32,7 @@ export function TransactionsTable({ transactionList }: TransactionsTableProps) {
                     </thead>
 
                     <tbody>
-                        {transactionList.map((t: Transaction) => (
+                        {transactions.map((t: Transaction) => (
                             <tr key={t.id}>
                                 <td>{t.title}</td>
                                 <td className={t.type}>

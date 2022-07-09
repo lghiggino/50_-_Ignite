@@ -7,12 +7,12 @@ import { TransactionsTable } from "../TransactionsTable/TransactionsTable";
 
 export function Dashboard() {
     const transactions = useContext(TransactionsContext)
-
-
-    if (!transactions) {
+    
+    if (!transactions || transactions.length === 0) {
         return (
             <Container>
                 <p>Não há transações disponíveis para esse usuário</p>
+                <p>cadastre uma nova transação no botão "Nova Transação"</p>
             </Container>
         )
     }
@@ -20,7 +20,7 @@ export function Dashboard() {
     return (
         <Container>
             <Summary />
-            <TransactionsTable transactionList={transactions} />
+            <TransactionsTable />
         </Container>
     )
 }

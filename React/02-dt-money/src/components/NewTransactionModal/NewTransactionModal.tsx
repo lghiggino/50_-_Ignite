@@ -125,4 +125,3 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
 
 //https://www.youtube.com/watch?v=HPoC-k7Rxwo
 //https://www.youtube.com/watch?v=PiYS3PMXOjc
-//https://app.rocketseat.com.br/node/chapter-ii-1/group/modal-and-forms/lesson/criando-botoes-de-tipo-2
