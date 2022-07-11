@@ -120,19 +120,19 @@ export function App() {
 
         <NewTransactionModal
           isOpen={isNewTransactionModalOpen}
-          onRequestClose={() => {handleCloseModal('newTransactions')}}
+          onRequestClose={() => { handleCloseModal('newTransactions') }}
         />
 
         <LoginModal
           isOpen={isLoginModalOpen}
-          onRequestClose={() => {handleCloseModal('login')}}
+          onRequestClose={() => { handleCloseModal('login') }}
           onChangeUser={setUser}
           onError={setError}
         />
 
         <RegisterModal
           isOpen={isRegisterModalOpen}
-          onRequestClose={() => {handleCloseModal('register')}}
+          onRequestClose={() => { handleCloseModal('register') }}
         />
       </UserProvider>
     </div>

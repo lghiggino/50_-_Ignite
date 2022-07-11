@@ -7,7 +7,7 @@ import { TransactionsTable } from "../TransactionsTable/TransactionsTable";
 
 export function Dashboard() {
     const transactions = useContext(TransactionsContext)
-    
+
     if (!transactions || transactions.length === 0) {
         return (
             <Container>
