@@ -1,6 +1,6 @@
 import axios from "axios";
-import { createContext, ReactNode, useEffect, useState } from "react";
-import { Transaction } from "./App";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { Transaction } from "../App";
 
 interface TransactionsProviderProps {
     children: ReactNode
@@ -52,4 +52,11 @@ export function TransactionsProvider({ children, user }: TransactionsProviderPro
             {children}
         </TransactionsContext.Provider>
     )
+}
+
+
+export function useTransactions(){
+    const context = useContext(TransactionsContext)
+
+    return context
 }

@@ -1,5 +1,4 @@
-import { useState, Suspense, useEffect, FormEvent, SyntheticEvent, useContext } from "react";
-import axios from "axios";
+import { useState, Suspense, useEffect } from "react";
 import { Global } from "@emotion/react";
 import { Dashboard } from "./components/Dashboard/Dashboard";
 import { Header } from "./components/Header/Header";
@@ -8,8 +7,8 @@ import { GlobalStyles } from "./styles/global";
 import { NewTransactionModal } from "./components/NewTransactionModal/NewTransactionModal";
 import { LoginModal } from "./components/LoginModal/LoginModal";
 import { RegisterModal } from "./components/RegisterModal/RegisterModal";
-import { TransactionsContext, TransactionsProvider } from "./TransactionsContext";
-import { UserContext, UserProvider } from "./UserContext";
+import { TransactionsProvider } from "./hooks/useTransactions";
+import { UserProvider } from "./UserContext";
 
 export type User = {
   token: string,

@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import { TransactionsContext } from "../../TransactionsContext";
+import { useTransactions } from "../../hooks/useTransactions";
 import { Container } from "../Dashboard/Dashboard.styles";
 import { Summary } from "../Summary/Summary";
 import { TransactionsTable } from "../TransactionsTable/TransactionsTable";
 
 
 export function Dashboard() {
-    const transactions = useContext(TransactionsContext)
+    const transactions = useTransactions();
 
     if (!transactions || transactions.length === 0) {
         return (
