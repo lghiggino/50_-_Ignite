@@ -10,23 +10,58 @@ interface RegisterModalProps {
 }
 
 interface RegisterFormProps {
+    firstname: string
+    lastname: string
     email: string
     password: string
     confirmPassword: string
-    phone: string
+    phonenumber: string
 }
 
 export function RegisterModal({ isOpen, onRequestClose }: RegisterModalProps) {
     const [registerFormInputs, setRegisterFormInputs] = useState<RegisterFormProps>({
+        firstname: "",
+        lastname: "",
         email: "",
         password: "",
         confirmPassword: "",
-        phone: ""
+        phonenumber: ""
     })
 
     async function handleRegistration(event: FormEvent) {
         event.preventDefault()
-        console.log("registering with:",)
+
+        if (!registerFormInputs.email ||
+            !registerFormInputs.password ||
+            !registerFormInputs.confirmPassword ||
+            !registerFormInputs.phonenumber
+        ) {
+            alert("Must provide every field to be able to register")
+            return
+        }
+
+        if (registerFormInputs.password !== registerFormInputs.confirmPassword) {
+            alert("Password must match")
+            return
+        }
+
+        try {
+            const { data } = await axios.post(
+                'http://localhost:3333/createuser',
+                 registerFormInputs,
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            )
+            if(data){
+                alert("registrado com sucesso, por favor faça login")
+                onRequestClose()
+            }
+        } catch (error) {
+           console.log("unable to register")
+        }
     }
 
 
@@ -60,7 +95,28 @@ export function RegisterModal({ isOpen, onRequestClose }: RegisterModalProps) {
                             email: e.target.value
                         }))
                     }}
-                        
+                />
+
+                <input
+                    placeholder="First Name"
+                    value={registerFormInputs.firstname}
+                    onChange={(e) => {
+                        setRegisterFormInputs(registerFormInputs => ({
+                            ...registerFormInputs,
+                            firstname: e.target.value
+                        }))
+                    }}
+                />
+
+                <input
+                    placeholder="Last Name"
+                    value={registerFormInputs.lastname}
+                    onChange={(e) => {
+                        setRegisterFormInputs(registerFormInputs => ({
+                            ...registerFormInputs,
+                            lastname: e.target.value
+                        }))
+                    }}
                 />
 
                 <input
@@ -87,17 +143,18 @@ export function RegisterModal({ isOpen, onRequestClose }: RegisterModalProps) {
 
                 <input
                     placeholder="Phone"
-                    value={registerFormInputs.phone}
+                    value={registerFormInputs.phonenumber}
                     onChange={(e) => {
                         setRegisterFormInputs(registerFormInputs => ({
                             ...registerFormInputs,
-                            phone: e.target.value
+                            phonenumber: e.target.value
                         }))
                     }}
                 />
 
                 <button
                     type="submit"
+                    onClick={handleRegistration}
                 >
                     Register
                 </button>
