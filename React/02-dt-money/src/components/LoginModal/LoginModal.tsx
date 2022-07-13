@@ -1,5 +1,4 @@
 import axios from "axios";
-import { AnySoaRecord } from "dns";
 import { FormEvent, useState } from "react";
 import Modal from "react-modal"
 import closeImg from "../../assets/close.svg";
