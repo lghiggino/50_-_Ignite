@@ -50,6 +50,7 @@ routes.get('/transaction/:userId', async (request, response) => {
 
 routes.post('/createuser', async (req, res) => {
     const { firstname, lastname, password, email, phonenumber } = req.body
+    console.log("entrou em /createuser com: ", firstname, lastname, password, email, phonenumber)
 
     const newUser = await UserService.create({
         firstname,
