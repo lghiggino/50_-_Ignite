@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useTransactions } from "../../hooks/useTransactions";
-import { Container } from "../Dashboard/Dashboard.styles";
+import { Container, NotificationText } from "../Dashboard/Dashboard.styles";
 import { Summary } from "../Summary/Summary";
 import { TransactionsTable } from "../TransactionsTable/TransactionsTable";
 
@@ -11,8 +11,8 @@ export function Dashboard() {
     if (!transactions || transactions.length === 0) {
         return (
             <Container>
-                <p>Não há transações disponíveis para esse usuário</p>
-                <p>cadastre uma nova transação no botão "Nova Transação"</p>
+                <NotificationText>Não há transações disponíveis para esse usuário</NotificationText>
+                <NotificationText>Cadastre uma nova transação no botão "Nova Transação"</NotificationText>
             </Container>
         )
     }
