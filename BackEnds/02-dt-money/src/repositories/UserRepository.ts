@@ -79,12 +79,30 @@ export class UserRepository {
             })
 
             if (!user) {
-                return "invalid user"
+                return "invalid user id or id not found"
             }
 
             return user
         } catch (error) {
-            throw new Error("Unable to find user by Id")
+            throw new Error("Unable to perform")
+        }
+    }
+
+    async findByEmail(email: string) {
+        try {
+            const user = await prisma.user.findUnique({
+                where: {
+                    email: email
+                }
+            })
+
+            if (!user) {
+                return "invalid user email or user not found"
+            }
+
+            return user
+        } catch (error) {
+            throw new Error("Unable to perform")
         }
     }
 
