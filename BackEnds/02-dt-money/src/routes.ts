@@ -21,7 +21,7 @@ routes.post('/transaction', async (request, response) => {
 
     const user = await UserService.findById(decodedToken.id)
 
-    if (user === "invalid user") {
+    if (user === "invalid user id or id not found") {
         return "invalid user"
     }
 
