@@ -104,6 +104,7 @@ export function App() {
             </div>
           </Suspense>
         }
+        
 
         <TransactionsProvider user={user}>
           {user.token && transactions &&
